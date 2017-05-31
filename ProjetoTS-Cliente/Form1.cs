@@ -93,11 +93,11 @@ namespace ProjetoTS_Cliente
 
             File.WriteAllText("publickey.txt", publicKey);
 
-            tbPublicKey.Text = publicKey;
+          
 
             string privateKey = rsa.ToXmlString(true);
 
-            tbPrivateKey.Text = privateKey;
+            
         }
 
         private void buttonSavePublicKey_Click(object sender, EventArgs e)
