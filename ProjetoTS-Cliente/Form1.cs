@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EI.SI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,16 +17,19 @@ namespace ProjetoTS_Cliente
 {
     public partial class Form1 : Form
     {
+        private ProtocolSI protocolsi;
         private RSACryptoServiceProvider rsa;
         private const int PORT = 9999;
 
         public Form1()
         {
             InitializeComponent();
+            protocolsi = new ProtocolSI();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            rsa = new RSACryptoServiceProvider();
             TcpClient tcpClient = new TcpClient();
             NetworkStream networkStream = null;
 
@@ -42,9 +46,16 @@ namespace ProjetoTS_Cliente
 
                 int bytesRead = 0;
 
+                networkStream.Read(protocolsi.Buffer, 0, protocolsi.Buffer.Length);
+
+                if (protocolsi.GetCmdType() == ProtocolSICmdType.PUBLIC_KEY)
+                {
+                    MessageBox.Show("Recebi: " + protocolsi.GetStringFromData());
+                }
+
                 #region Send String Message
 
-               // Console.WriteLine("Send message to server? write a message");
+                // Console.WriteLine("Send message to server? write a message");
                 string msg = Console.ReadLine();
 
                 byte[] msgBytes = Encoding.UTF8.GetBytes(msg);
@@ -55,6 +66,8 @@ namespace ProjetoTS_Cliente
                 byte[] ack = new byte[2];
 
                 bytesRead = networkStream.Read(ack, 0, ack.Length);
+
+                rsa.FromXmlString("publickey");
 
                 string ackMessage = Encoding.UTF8.GetString(ack, 0, bytesRead);
 
@@ -85,29 +98,5 @@ namespace ProjetoTS_Cliente
             //Console.ReadKey();
         }
 
-        private void buttonGenerateKeys_Click(object sender, EventArgs e)
-        {
-            rsa = new RSACryptoServiceProvider();
-
-            string publicKey = rsa.ToXmlString(false);
-
-            File.WriteAllText("publickey.txt", publicKey);
-
-            tbPublicKey.Text = publicKey;
-
-            string privateKey = rsa.ToXmlString(true);
-
-            tbPrivateKey.Text = privateKey;
-        }
-
-        private void buttonSavePublicKey_Click(object sender, EventArgs e)
-        {
-            File.WriteAllText("publickey.txt", tbPublicKey.Text);
-        }
-
-        private void buttonSavePrivateKey_Click(object sender, EventArgs e)
-        {
-            File.WriteAllText("privatepublickey.txt", tbPrivateKey.Text);
-        }
     }
 }
