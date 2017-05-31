@@ -1,8 +1,11 @@
-﻿using System;
+﻿using EI.SI;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,15 +14,24 @@ namespace ProjetoTS_Server
     class Server
     {
         private const int PORT = 9999;
+        private static ProtocolSI protocolsi;
+        private static RSACryptoServiceProvider rsa;
 
         static void Main(string[] args)
         {
+
+            protocolsi = new ProtocolSI();
             TcpListener tcpListener = null;
             TcpClient tcpClient = null;
             NetworkStream networkStream = null;
 
             try
             {
+                rsa = new RSACryptoServiceProvider();
+
+                string publicKey = rsa.ToXmlString(false);
+
+                File.WriteAllText("publickey.txt", publicKey); 
                 IPEndPoint endPoint = new IPEndPoint(IPAddress.Loopback, PORT);
                 tcpListener = new TcpListener(endPoint);
 

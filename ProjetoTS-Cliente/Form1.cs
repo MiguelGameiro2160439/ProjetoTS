@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,7 +16,7 @@ namespace ProjetoTS_Cliente
 {
     public partial class Form1 : Form
     {
-
+        private RSACryptoServiceProvider rsa;
         private const int PORT = 9999;
 
         public Form1()
@@ -81,6 +83,31 @@ namespace ProjetoTS_Cliente
 
             //Console.WriteLine("Server");
             //Console.ReadKey();
+        }
+
+        private void buttonGenerateKeys_Click(object sender, EventArgs e)
+        {
+            rsa = new RSACryptoServiceProvider();
+
+            string publicKey = rsa.ToXmlString(false);
+
+            File.WriteAllText("publickey.txt", publicKey);
+
+            tbPublicKey.Text = publicKey;
+
+            string privateKey = rsa.ToXmlString(true);
+
+            tbPrivateKey.Text = privateKey;
+        }
+
+        private void buttonSavePublicKey_Click(object sender, EventArgs e)
+        {
+            File.WriteAllText("publickey.txt", tbPublicKey.Text);
+        }
+
+        private void buttonSavePrivateKey_Click(object sender, EventArgs e)
+        {
+            File.WriteAllText("privatepublickey.txt", tbPrivateKey.Text);
         }
     }
 }
