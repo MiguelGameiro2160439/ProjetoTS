@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ProtocolSI">
-      <HintPath>..\..\..\Tópicos de Segurança\ProtocolSI.dll</HintPath>
+      <HintPath>..\..\..\..\Documents\TeSP\PSI\2ºSemestre\Tópicos de segurança\ficha nº7\ProtocolSI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
