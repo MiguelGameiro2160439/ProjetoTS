@@ -16,7 +16,7 @@ namespace ProjetoTS_Cliente
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormFicheiros());
+            Application.Run(new Form1());
         }
     }
 }

@@ -69,6 +69,8 @@ namespace ProjetoTS_Server
                 networkStream.Write(ack, 0, ack.Length);
 
                 #endregion
+
+
             }
 
             catch (Exception exception)
