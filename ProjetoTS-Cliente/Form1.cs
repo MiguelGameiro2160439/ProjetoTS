@@ -294,6 +294,8 @@ namespace ProjetoTS_Cliente
             if (VerifyLogin(username, pass))
             {
                 MessageBox.Show("Valid User");
+                FormFicheiros form = new FormFicheiros();
+                form.ShowDialog();
             }
             else
             {
