@@ -37,7 +37,7 @@ namespace ProjetoTS_Cliente
             byte[] buffer = new byte[bufferSize];
 
             String originalFilePath = "estg_logo.jpg";
-            String copyfilePath = "copy_estg_logo.jpg";
+            String copyfilePath = @"C:\Users\João Vieira\Source\Repos\ProjetoTS\ProjetoTS-Server\bin\Debug\copy_estg_logo.jpg";
             String logFilePath = "log.txt";
 
             if (File.Exists(copyfilePath))
