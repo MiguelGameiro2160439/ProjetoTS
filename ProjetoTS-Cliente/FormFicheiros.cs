@@ -37,7 +37,7 @@ namespace ProjetoTS_Cliente
             byte[] buffer = new byte[bufferSize];
 
             String originalFilePath = "estg_logo.jpg";
-            String copyfilePath = "copy_estg_logo.jpg";
+            String copyfilePath = @"C:\Users\migue\Documents\ESTG\Desenvolvimento de Aplicações\ProjetoTS-Cliente\ProjetoTS-Server\bin\Debug\estg_logo.jpg";
             String logFilePath = "log.txt";
 
             if (File.Exists(copyfilePath))
@@ -47,6 +47,7 @@ namespace ProjetoTS_Cliente
 
             FileStream originalFileStream = new FileStream(originalFilePath, FileMode.Open);
             FileStream copyFileStream = new FileStream(copyfilePath, FileMode.Create);
+            
             StreamWriter logStream = new StreamWriter(logFilePath);
 
             progressBar1.Maximum = (int)originalFileStream.Length;
