@@ -45,10 +45,13 @@ namespace ProjetoTS_Server
 
                 networkStream = tcpClient.GetStream();
 
+                byte[] packet = protocolsi.Make(ProtocolSICmdType.PUBLIC_KEY, publicKey);
+                networkStream.Write(packet, 0, packet.Length);
+
                 int bytesRead = 0;
 
                 #region Receive String Message
-                Console.WriteLine("mensagem");
+                Console.WriteLine("Chave Pública Enviada");
 
                 int bufferSize = tcpClient.ReceiveBufferSize;
                 byte[] buffer = new byte[bufferSize];
