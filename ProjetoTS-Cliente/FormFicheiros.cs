@@ -29,6 +29,10 @@ namespace ProjetoTS_Cliente
             TcpClient tcpClient = new TcpClient();
             protocolsi = new ProtocolSI();
         }
+        private byte[] hash;
+        private byte[] data;
+        private byte[] signature;
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -65,6 +69,13 @@ namespace ProjetoTS_Cliente
             logStream.Close();
             originalFileStream.Close();
             copyFileStream.Close();
+        }
+
+        private void signedHash()
+        {
+            signature = rsa.SignHash(hash, CryptoConfig.MapNameToOID("SHA1"));
+            textBoxSignedHash.Text = BitConverter.ToString(signature);
+       
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -137,6 +148,10 @@ namespace ProjetoTS_Cliente
             //Console.ReadKey();
         }
 
+        private void textBoxSignedHash_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
     
 }
