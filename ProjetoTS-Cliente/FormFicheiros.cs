@@ -40,9 +40,20 @@ namespace ProjetoTS_Cliente
             int bytesRead = 0;
             byte[] buffer = new byte[bufferSize];
 
+          
+
             String originalFilePath = "estg_logo.jpg";
             String copyfilePath = @"C:\Users\migue\Documents\ESTG\Desenvolvimento de Aplicações\ProjetoTS-Cliente\ProjetoTS-Server\bin\Debug\estg_logo.jpg";
             String logFilePath = "log.txt";
+
+            data = Encoding.UTF8.GetBytes(originalFilePath);
+
+            using (SHA1 sha1 = new SHA1CryptoServiceProvider())
+            {
+                signature = rsa.SignData(data, sha1);
+               textBoxSignedData.Text = BitConverter.ToString(signature);
+              //  tbBitsSignature.Text = (signature.Length * 8).ToString();
+            }
 
             if (File.Exists(copyfilePath))
             {
@@ -69,12 +80,13 @@ namespace ProjetoTS_Cliente
             logStream.Close();
             originalFileStream.Close();
             copyFileStream.Close();
+       
         }
 
         private void signedHash()
         {
             signature = rsa.SignHash(hash, CryptoConfig.MapNameToOID("SHA1"));
-            textBoxSignedHash.Text = BitConverter.ToString(signature);
+            textBoxSignedData.Text = BitConverter.ToString(signature);
        
         }
 
@@ -146,12 +158,11 @@ namespace ProjetoTS_Cliente
 
             //Console.WriteLine("Server");
             //Console.ReadKey();
-        }
 
-        private void textBoxSignedHash_TextChanged(object sender, EventArgs e)
-        {
 
         }
+
+      
     }
     
 }
